@@ -1,19 +1,22 @@
+import Image from 'next/image';
 import { Carousel, Typography, Button } from '@material-tailwind/react';
 
 const CustomCarousel = () => {
   return (
     <Carousel
+      loop
+      autoplay={true}
       prevArrow={() => {}}
       nextArrow={() => {}}
-      autoplay={true}
-      loop
       className="rounded-xl max-h-[33rem]"
     >
       <div className="relative h-full w-full">
-        <img
-          src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
+        <Image
+          width="100%"
+          height="100%"
           alt="image 1"
-          className="h-full w-full object-cover"
+          className="object-cover"
+          src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
         />
         <div className="absolute inset-0 grid h-full w-full place-items-center bg-black/75">
           <div className="w-3/4 text-center md:w-2/4">
@@ -46,10 +49,12 @@ const CustomCarousel = () => {
         </div>
       </div>
       <div className="relative h-full w-full">
-        <img
+        <Image
+          width="100%"
+          height="100%"
+          alt="image 1"
+          className="object-cover"
           src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
-          alt="image 2"
-          className="h-full w-full object-cover"
         />
         <div className="absolute inset-0 grid h-full w-full items-center bg-black/75">
           <div className="w-3/4 pl-12 md:w-2/4 md:pl-20 lg:pl-32">
@@ -82,10 +87,12 @@ const CustomCarousel = () => {
         </div>
       </div>
       <div className="relative h-full w-full">
-        <img
+        <Image
+          width="100%"
+          height="100%"
+          alt="image 1"
+          className="object-cover"
           src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
-          alt="image 3"
-          className="h-full w-full object-cover"
         />
         <div className="absolute inset-0 grid h-full w-full items-end bg-black/75">
           <div className="w-3/4 pl-12 pb-12 md:w-2/4 md:pl-20 md:pb-20 lg:pl-32 lg:pb-32">

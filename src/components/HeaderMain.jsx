@@ -22,7 +22,7 @@ const HeaderMain = () => {
             <span>Offers</span>
             <Icon icon="ep:arrow-down-bold" width="12" height="12" />
 
-            <div className="absolute left-0 top-[110%] group-hover:top-full h-0 opacity-0 group-hover:opacity-100 group-hover:h-auto p-4 duration-100 rounded-b-lg shadow-sm border min-w-[40rem]">
+            <div className="absolute left-0 top-[110%] group-hover:top-full h-0 opacity-0 group-hover:opacity-100 group-hover:h-auto p-4 duration-100 rounded-b-lg shadow-sm border min-w-[40rem] z-[999] group-hover:visible invisible bg-white">
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex items-center gap-3">
                   <Icon
@@ -49,7 +49,7 @@ const HeaderMain = () => {
             <span>Stores</span>
             <Icon icon="ep:arrow-down-bold" width="12" height="12" />
 
-            <div className="absolute left-0 top-[110%] group-hover:top-full h-0 opacity-0 group-hover:opacity-100 group-hover:h-auto p-4 duration-100 rounded-b-lg shadow-sm border min-w-[40rem]">
+            <div className="absolute left-0 top-[110%] group-hover:top-full h-0 opacity-0 group-hover:opacity-100 group-hover:h-auto p-4 duration-100 rounded-b-lg shadow-sm border min-w-[40rem] z-[999] group-hover:visible invisible bg-white">
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex items-center gap-3">
                   <Icon
@@ -76,7 +76,7 @@ const HeaderMain = () => {
             <span>Brands</span>
             <Icon icon="ep:arrow-down-bold" width="12" height="12" />
 
-            <div className="absolute left-0 top-[110%] group-hover:top-full h-0 opacity-0 group-hover:opacity-100 group-hover:h-auto p-4 duration-100 rounded-b-lg shadow-sm border min-w-[40rem]">
+            <div className="absolute left-0 top-[110%] group-hover:top-full h-0 opacity-0 group-hover:opacity-100 group-hover:h-auto p-4 duration-100 rounded-b-lg shadow-sm border min-w-[40rem] z-[999] group-hover:visible invisible bg-white">
               <div className="grid grid-cols-2 gap-3">
                 <div className="flex items-center gap-3">
                   <Icon
