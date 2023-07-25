@@ -7,6 +7,7 @@ import {
   MenuItem,
   Button,
 } from '@material-tailwind/react';
+import CustomButton from './common/CustomButton';
 
 export const menuCategories = [
   {
@@ -73,6 +74,9 @@ export const menuCategories = [
 
 const DropMenuCategory = () => {
   const [openMenu, setOpenMenu] = useState(true);
+  const [openMenuItem, setOpenMenuItem] = useState(false);
+  console.log('openMenuItem', openMenuItem);
+
   return (
     <div className="relative w-[26rem] h-[4.4rem]">
       <div
@@ -105,36 +109,73 @@ const DropMenuCategory = () => {
         {menuCategories.map((item, idx) => (
           <div key={idx}>
             {!item.child ? (
-              <li className="text-sm text-secondary-100 border-t py-4 flex justify-between items-center">
+              <li className="text-sm text-secondary-100 border-t py-4 flex justify-between items-center hover:bg-secondary-10 duration-300 hover:text-primary-100 cursor-pointer">
                 <span>{item.title}</span>
               </li>
             ) : (
-              <li className="text-sm text-secondary-100 border-t py-4 flex justify-between items-center">
-                <Menu allowHover placement="right-start">
+              <li className="text-sm text-secondary-100 border-t pr-1 hover:bg-secondary-10 hover:text-primary-100 duration-300">
+                <Menu
+                  allowHover
+                  open={openMenuItem}
+                  handler={setOpenMenuItem}
+                  placement="right-start"
+                >
                   <MenuHandler>
-                    <div className='flex justify-between items-center w-full'>
+                    <div className="flex justify-between items-center w-full py-4 group">
                       {item.title}
-                      <span
-                      // className={`${
-                      //   openMenu ? '' : 'rotate-180'
-                      // } absolute right-6 duration-300`}
-                      >
+                      <span className={`duration-300 group-hover:rotate-180`}>
                         <Icon
                           icon="ep:arrow-down-bold"
                           width="14"
                           height="14"
-                          //   color="white"
                         />
                       </span>
                     </div>
                   </MenuHandler>
 
                   <MenuList>
-                    <MenuItem>Menu Item 1</MenuItem>
-                    <MenuItem>Menu Item 2</MenuItem>
-                    <MenuItem>Menu Item 3</MenuItem>
-                    <hr className="my-3" />
-                    <MenuItem>Menu Item 4</MenuItem>
+                    {item.child?.map((child, idx) => (
+                      <div
+                        key={idx}
+                        className={`${
+                          idx < 1 ? '' : 'border-t'
+                        } hover:text-primary-100 hover:bg-secondary-10 hover:outline-none rounded`}
+                      >
+                        {!child.child ? (
+                          <div className="py-3 px-2">{child.title}</div>
+                        ) : (
+                          <Menu allowHover placement="right-start">
+                            <MenuHandler>
+                              <div className="flex justify-between items-center w-full py-4 px-2 group hover:outline-none">
+                                {child.title}
+                                <span
+                                  className={`duration-300 group-hover:rotate-180`}
+                                >
+                                  <Icon
+                                    icon="ep:arrow-down-bold"
+                                    width="14"
+                                    height="14"
+                                  />
+                                </span>
+                              </div>
+                            </MenuHandler>
+
+                            <MenuList>
+                              {child.child?.map((childItem, idx) => (
+                                <div
+                                  key={idx}
+                                  className={`${
+                                    idx < 1 ? '' : 'border-t'
+                                  } hover:text-primary-100 hover:bg-secondary-10 hover:outline-none py-3 px-2 rounded`}
+                                >
+                                  {childItem.title}
+                                </div>
+                              ))}
+                            </MenuList>
+                          </Menu>
+                        )}
+                      </div>
+                    ))}
                   </MenuList>
                 </Menu>
               </li>
