@@ -3,6 +3,7 @@ import HeaderMain from '@/components/HeaderMain';
 import NavigationBar from '@/components/NavigationBar';
 import BannerSection from '@/components/BannerSection';
 import TopSocialSection from '@/components/TopSocialSection';
+import CustomDrawer from '@/components/common/CustomDrawer';
 
 export default function Home() {
   return (

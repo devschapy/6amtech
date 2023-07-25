@@ -1,33 +1,27 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Icon } from '@iconify/react';
-import {
-  Navbar,
-  Typography,
-  IconButton,
-  Button,
-  Input,
-  Badge,
-} from '@material-tailwind/react';
-import { BellIcon, Cog6ToothIcon } from '@heroicons/react/24/solid';
+import { Button, Badge } from '@material-tailwind/react';
+import CustomImage from '@/components/common/CustomImage';
+import CustomDrawer from '@/components/common/CustomDrawer';
 
 const NavigationBar = () => {
   return (
     <section className="container flex justify-between py-4">
       <Link href="/">
-        <Image
-          width={100}
-          height={100}
-          alt="brand_logo"
-          src="/image/logo.png"
-        />
+        <CustomImage src="/image/logo.png" className="w-[12rem]" />
       </Link>
 
-      <div className="relative flex items-center w-[40%] h-[4.4rem] gap-2 bg-white border shadow-sm rounded-full px-3 py-1">
-        <div className="flex gap-3 items-center text-xs text-[#A2B1C1] min-w-[12rem] h-full">
+      <div className="relative hidden lg:flex items-center w-[40%] h-[4.4rem] gap-2 bg-white border shadow-sm rounded-full px-3 py-1">
+        <div className="flex gap-3 items-center text-xs text-[#A2B1C1] min-w-[13rem] h-full">
           <Icon icon="eva:menu-fill" color="#A2B1C1" width="16" height="16" />
-          All Categories
+          <p>All Categories</p>
+          <Icon
+            icon="material-symbols:arrow-drop-down"
+            color="#a2b1c1"
+            width="18"
+            height="18"
+          />
         </div>
 
         <input
@@ -43,7 +37,7 @@ const NavigationBar = () => {
         </Button>
       </div>
 
-      <div className="flex gap-3 items-center">
+      <div className=" hidden lg:flex gap-3 items-center">
         <div className="border-r flex gap-3 pr-7">
           <Button variant="text" className="rounded-full px-1 py-1">
             <Icon icon="circum:dark" width="28" height="28" color="#A2B1C1" />
@@ -102,6 +96,9 @@ const NavigationBar = () => {
             />
           </Button>
         </Badge>
+      </div>
+      <div className="lg:hidden">
+        <CustomDrawer />
       </div>
     </section>
   );

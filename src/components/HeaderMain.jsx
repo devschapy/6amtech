@@ -5,7 +5,7 @@ import DropMenuCategory from './DropMenuCategory';
 
 const HeaderMain = () => {
   return (
-    <section className="border-t border-b">
+    <section className="border-t border-b hidden lg:block">
       <div className="container flex gap-6">
         <DropMenuCategory />
 
