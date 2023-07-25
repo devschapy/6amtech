@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   Menu,
   MenuHandler,
@@ -66,7 +66,7 @@ export const menuCategories = [
     title: 'Gadgets',
   },
   {
-    id: 3,
+    id: 8,
     title: 'Computer & Office',
     child: [],
   },
@@ -74,11 +74,20 @@ export const menuCategories = [
 
 const DropMenuCategory = () => {
   const [openMenu, setOpenMenu] = useState(true);
-  const [openMenuItem, setOpenMenuItem] = useState(false);
-  console.log('openMenuItem', openMenuItem);
+  const [accordionMenu, setAccordionMenu] = useState(null);
+  const [accordionChildMenu, setAccordionChildMenu] = useState(null);
+
+  console.log('accordionChildMenu', accordionChildMenu);
+
+  // const childAccordionHandler = useMemo(
+  //   (id) => {
+  //     setAccordionChildMenu(accordionChildMenu == id ? null : id);
+  //   },
+  //   [accordionChildMenu]
+  // );
 
   return (
-    <div className="relative w-[26rem] h-[4.4rem]">
+    <div className="relative w-[23%] h-[4.4rem]">
       <div
         onClick={() => setOpenMenu(!openMenu)}
         className=" bg-primary-100 h-full flex items-center gap-4 px-4 text-sm text-white relative cursor-pointer"
@@ -109,21 +118,40 @@ const DropMenuCategory = () => {
         {menuCategories.map((item, idx) => (
           <div key={idx}>
             {!item.child ? (
-              <li className="text-sm text-secondary-100 border-t py-4 flex justify-between items-center hover:bg-secondary-10 duration-300 hover:text-primary-100 cursor-pointer">
+              <li
+                onMouseEnter={() =>
+                  setAccordionMenu(accordionMenu == item.id ? null : item.id)
+                }
+                className="text-sm text-secondary-100 border-t py-4 flex justify-between items-center hover:bg-secondary-10 duration-300 hover:text-primary-100 cursor-pointer"
+              >
                 <span>{item.title}</span>
               </li>
             ) : (
-              <li className="text-sm text-secondary-100 border-t pr-1 hover:bg-secondary-10 hover:text-primary-100 duration-300">
+              <li
+                className={`${
+                  accordionMenu == item.id
+                    ? 'bg-secondary-10 text-primary-100'
+                    : 'text-secondary-100 hover:bg-secondary-10 hover:text-primary-100'
+                } text-sm border-t pr-1 duration-300`}
+              >
                 <Menu
-                  allowHover
-                  open={openMenuItem}
-                  handler={setOpenMenuItem}
                   placement="right-start"
+                  open={accordionMenu == item.id ? true : false}
+                  allowHover={accordionMenu == item.id ? false : true}
+                  handler={() =>
+                    setAccordionMenu(accordionMenu == item.id ? null : item.id)
+                  }
                 >
                   <MenuHandler>
                     <div className="flex justify-between items-center w-full py-4 group">
                       {item.title}
-                      <span className={`duration-300 group-hover:rotate-180`}>
+                      <span
+                        className={`${
+                          accordionMenu == item.id
+                            ? 'rotate-180'
+                            : 'group-hover:rotate-180'
+                        } duration-300`}
+                      >
                         <Icon
                           icon="ep:arrow-down-bold"
                           width="14"
@@ -133,23 +161,87 @@ const DropMenuCategory = () => {
                     </div>
                   </MenuHandler>
 
-                  <MenuList>
+                  <MenuList className="overflow-visible">
                     {item.child?.map((child, idx) => (
                       <div
                         key={idx}
-                        className={`${
-                          idx < 1 ? '' : 'border-t'
-                        } hover:text-primary-100 hover:bg-secondary-10 hover:outline-none rounded`}
+                        className={`${idx < 1 ? '' : 'border-t'} ${
+                          accordionChildMenu == child.id
+                            ? 'text-primary-100 bg-secondary-10'
+                            : 'hover:text-primary-100 hover:bg-secondary-10'
+                        } hover:outline-none rounded`}
                       >
                         {!child.child ? (
-                          <div className="py-3 px-2">{child.title}</div>
+                          <div
+                            className="py-3 px-2"
+                            onMouseEnter={() =>
+                              setAccordionChildMenu(
+                                accordionChildMenu == child.id ? null : child.id
+                              )
+                            }
+                          >
+                            {child.title}
+                          </div>
                         ) : (
-                          <Menu allowHover placement="right-start">
+                          // <div className="relative group">
+                          //   <div
+                          //     onClick={(event) => {
+                          //       event.stopPropagation();
+                          //       setAccordionChildMenu(
+                          //         accordionChildMenu == child.id
+                          //           ? null
+                          //           : child.id
+                          //       );
+                          //     }}
+                          //     onMouseEnter={() => {
+                          //       if (accordionChildMenu !== child.id)
+                          //         setAccordionChildMenu(
+                          //           accordionChildMenu == child.id
+                          //             ? null
+                          //             : child.id
+                          //         );
+                          //     }}
+                          //     className="flex justify-between items-center w-full py-4 px-2 group hover:outline-none"
+                          //   >
+                          //     {child.title}
+                          //     <span
+                          //       className={`${
+                          //         accordionChildMenu == child.id
+                          //           ? 'rotate-180'
+                          //           : 'group-hover:rotate-180'
+                          //       } duration-300`}
+                          //     >
+                          //       <Icon
+                          //         icon="ep:arrow-down-bold"
+                          //         width="14"
+                          //         height="14"
+                          //       />
+                          //     </span>
+                          //   </div>
+
+                          //   <div className="bg-white top-0 z-[9999] left-[100%] min-w-[10rem] min-h-[10rem] rounded-md shadow-md absolute right-0 opacity-0 h-0 group-hover:opacity-100 group-hover:h-auto bg-red-300">fsdfdsafgdsafd</div>
+                          // </div>
+                          <Menu
+                            placement="right-start"
+                            open={accordionChildMenu == child.id ? true : false}
+                            // allowHover={
+                            //   accordionChildMenu == child.id ? false : true
+                            // }
+                            handler={() =>
+                              setAccordionChildMenu(
+                                accordionChildMenu == child.id ? null : child.id
+                              )
+                            }
+                          >
                             <MenuHandler>
                               <div className="flex justify-between items-center w-full py-4 px-2 group hover:outline-none">
                                 {child.title}
                                 <span
-                                  className={`duration-300 group-hover:rotate-180`}
+                                  className={`${
+                                    accordionChildMenu == child.id
+                                      ? 'rotate-180'
+                                      : 'group-hover:rotate-180'
+                                  } duration-300`}
                                 >
                                   <Icon
                                     icon="ep:arrow-down-bold"
